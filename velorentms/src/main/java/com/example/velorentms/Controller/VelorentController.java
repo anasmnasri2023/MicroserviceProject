@@ -55,7 +55,7 @@ public class VelorentController {
     @PatchMapping
     public Velorent updateVelorent(@RequestBody Velorent velorent) {
         return velorentService.updateVelorent(velorent);
-    }
+    }d
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> cancelVelorent(@PathVariable("id") Long idVelorent) {
