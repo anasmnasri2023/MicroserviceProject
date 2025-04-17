@@ -18,10 +18,8 @@ import com.example.RentaBike_Event_Comment_MS.models.Comment;
 import com.example.RentaBike_Event_Comment_MS.service.CommentServiceImpl;
 
 import io.swagger.annotations.ApiOperation;
-
-@CrossOrigin(origins = "*")
-@RequestMapping("/comment")
 @RestController
+@RequestMapping("/comment")
 public class CommentController {
 	
 	@Autowired

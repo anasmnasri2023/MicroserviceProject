@@ -28,6 +28,7 @@ public class ApigatewayApplication {
                     .route("user-service", r->r.path("/api/**").uri("lb://user-service"))
                     .route("programme-service", r->r.path("/prog/**").uri("lb://programme-service"))
                     .route("velorent-service", r->r.path("/velorent/**").uri("lb://velorent-service"))
+                    .route("Event-service", r->r.path("/event/**").uri("lb://Event-service"))
                     .build();
 
         }
