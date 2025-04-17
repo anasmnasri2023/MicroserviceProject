@@ -14,7 +14,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("Association")
-@CrossOrigin(origins = "*", maxAge = 3600)
 public class AssociationController {
     @Autowired
     private AssociationService associationService;
