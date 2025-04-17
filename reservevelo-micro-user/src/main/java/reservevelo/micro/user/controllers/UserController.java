@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import reservevelo.micro.user.models.User;
 import reservevelo.micro.user.services.UserService;
 
@@ -29,13 +30,11 @@ import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 import static org.springframework.http.HttpStatus.FORBIDDEN;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
-@Slf4j
 @RestController
-@RequiredArgsConstructor
 @RequestMapping("/api")
 public class UserController {
-
-    private final UserService userService;
+    @Autowired
+     UserService userService;
 
     @GetMapping("/users")
     public ResponseEntity<List<User>> getUsers(){
