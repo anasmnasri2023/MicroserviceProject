@@ -8,6 +8,7 @@ import com.example.velorentms.Service.VelorentService;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
@@ -56,9 +57,10 @@ public class VelorentController {
         return velorentService.updateVelorent(velorent);
     }
 
-    @DeleteMapping
-    public void cancelVelorent(Long idVelorent) {
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<String> cancelVelorent(@PathVariable("id") Long idVelorent) {
         velorentService.cancelVelorent(idVelorent);
+        return ResponseEntity.ok("Velorent with id " + idVelorent + " has been deleted.");
     }
 
     @GetMapping("/user/{userId}")
