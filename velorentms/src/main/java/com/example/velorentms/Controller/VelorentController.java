@@ -2,12 +2,10 @@ package com.example.velorentms.Controller;
 
 import com.example.velorentms.Entity.Velorent;
 import com.example.velorentms.Service.VelorentService;
-
-import com.example.velorentms.Entity.Velorent;
-import com.example.velorentms.Service.VelorentService;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
@@ -21,9 +19,10 @@ import java.util.Optional;
 @CrossOrigin(origins = "*")
 public class VelorentController {
 
-    public VelorentService velorentService;
-    public RestTemplate restTemplate;
-    private Environment environment;
+    private final VelorentService velorentService;
+    private final RestTemplate restTemplate;
+    private final Environment environment;
+
     @Autowired
     public VelorentController(VelorentService velorentService, RestTemplate restTemplate, Environment environment) {
         this.velorentService = velorentService;
@@ -35,23 +34,39 @@ public class VelorentController {
     public Velorent rentVelorent(@RequestBody Velorent velorent) {
         return velorentService.rentVelorent(velorent);
     }
+
     @GetMapping("/{id}")
     public Optional<Velorent> getVelorent(@PathVariable("id") Long idVelorent) {
         return velorentService.getVelorent(idVelorent);
     }
+
     @GetMapping("/all")
     public List<Velorent> getAllVelorent() {
         return velorentService.getAllVelorent();
     }
 
+    // ✅ Get by startRentDate
     @GetMapping("/bystartdate")
-    public List<Velorent> getVelorentsByStartDate(@RequestBody Date date) {
-        return velorentService.getVelorentsByDate(date);
+    public List<Velorent> getVelorentsByStartDate(
+            @RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date date) {
+        return velorentService.getVelorentsByStartDate(date);
     }
+
+    // ✅ Get by endRentDate
     @GetMapping("/byenddate")
-    public List<Velorent> getVelorentsByendDate(@RequestBody Date date) {
-        return velorentService.getVelorentsByDate(date);
+    public List<Velorent> getVelorentsByEndDate(
+            @RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date date) {
+        return velorentService.getVelorentsByEndDate(date);
     }
+
+    // ✅ Optional: filter between two dates
+    @GetMapping("/bydaterange")
+    public List<Velorent> getVelorentsBetweenDates(
+            @RequestParam("start") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date start,
+            @RequestParam("end") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date end) {
+        return velorentService.getVelorentsBetweenDates(start, end);
+    }
+
     @PatchMapping
     public Velorent updateVelorent(@RequestBody Velorent velorent) {
         return velorentService.updateVelorent(velorent);
@@ -64,29 +79,21 @@ public class VelorentController {
     }
 
     @GetMapping("/user/{userId}")
-    public List<Velorent> getVelorentsByuserId(@PathVariable("userId") String userId){
-
-
-        String result = restTemplate.getForObject("http://user-service:8098/api/user/"+userId, String.class);
-
-
-        return velorentService.getVelorentsByuserId(userId);
+    public List<Velorent> getVelorentsByUserId(@PathVariable("userId") String userId) {
+        restTemplate.getForObject("http://user-service:8098/api/user/" + userId, String.class);
+        return velorentService.getVelorentsByUserId(userId);
     }
+
     @GetMapping("/userInfo/{userId}")
-    public User getUserByveloRent(@PathVariable("userId") String userId){
-
-
-        User result = restTemplate.getForObject("http://user-service:8098/api/user/"+userId, User.class);
-
-
-        return result;
+    public User getUserByVeloRent(@PathVariable("userId") String userId) {
+        return restTemplate.getForObject("http://user-service:8098/api/user/" + userId, User.class);
     }
+
     @Data
     public static class User {
-        private String id ;
-        private String firstName ;
-        private String lastName ;
-        private String userName ;
-
+        private String id;
+        private String firstName;
+        private String lastName;
+        private String userName;
     }
 }

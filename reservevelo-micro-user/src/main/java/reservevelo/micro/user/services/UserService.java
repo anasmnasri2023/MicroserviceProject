@@ -1,17 +1,19 @@
 package reservevelo.micro.user.services;
 
-import java.util.List;
-
-
 import reservevelo.micro.user.models.User;
 
+import java.util.List;
+
 public interface UserService {
+    User saveUser(User user);
 
-    User saveUser (User user );
+    User getUser(String username);
 
-    User getUser (String username);
-    User getUserById (String id);
+    User getUserById(String id);
+
     List<User> getAllUsers();
-    
-    
- }
+
+    List<User> searchUsers(String firstName, String lastName);
+
+    List<User> sortUsers(String field, String order);
+}
