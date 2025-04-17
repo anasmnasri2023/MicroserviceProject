@@ -1,0 +1,12 @@
+spring.application.name=apigateway
+eureka.client.service-url.default-zone=http://localhost:8763/eureka-server
+eureka.client.register-with-eureka=true
+server.port=8093
+
+logging.level.org.springframework.cloud.gateway=DEBUG
+logging.level.reactor.netty.http.client=DEBUG
+
+
+#spring.security.oauth2.resourceserver.jwt.issueruri=http://localhost:8888/realms/Jobboard
+#spring.security.oauth2.resourceserver.jwt.jwk-set-uri=http://localhost:8888/realms/Jobboard/protocol/openid-connect/certs
+#http://localhost:8888/realms/Jobboard/protocol/openid-connect/certs
