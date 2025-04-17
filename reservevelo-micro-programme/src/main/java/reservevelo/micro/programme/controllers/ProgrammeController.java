@@ -11,11 +11,8 @@ import lombok.extern.slf4j.Slf4j;
 import reservevelo.micro.programme.models.Programme;
 import reservevelo.micro.programme.services.IProgrammeService;
 
-@Slf4j
 @RestController
-@RequiredArgsConstructor
 @RequestMapping("/prog")
-@CrossOrigin(origins = "*", maxAge = 3600)
 public class ProgrammeController {
 	
 	@Autowired

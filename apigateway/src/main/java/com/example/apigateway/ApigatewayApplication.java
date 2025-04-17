@@ -26,6 +26,7 @@ public class ApigatewayApplication {
                     .route("association-service",r->r.path("/Association/**").uri("lb://association-service"))
                     .route("balade-service", r->r.path("/balade/**").uri("lb://balade-service"))
                     .route("user-service", r->r.path("/api/**").uri("lb://user-service"))
+                    .route("programme-service", r->r.path("/prog/**").uri("lb://programme-service"))
                     .build();
 
         }
