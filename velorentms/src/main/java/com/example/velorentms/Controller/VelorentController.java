@@ -53,7 +53,7 @@ public class VelorentController {
         return velorentService.getVelorentsByDate(date);
     }
     @PatchMapping
-    public Velorent updateVelorent(Velorent velorent) {
+    public Velorent updateVelorent(@RequestBody Velorent velorent) {
         return velorentService.updateVelorent(velorent);
     }
 
