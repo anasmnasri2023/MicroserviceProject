@@ -1,1 +1,14 @@
-<p>listbalade works!</p>
+<div class="card-container">
+    <div class="card" *ngFor="let balade of balades">
+      <h3>Balade: {{ balade.title }}</h3>
+      <p><strong>Description :</strong> {{ balade.description }}</p>
+      <p><strong>Lieu :</strong> {{ balade.location }}</p>
+      <p><strong>Date :</strong> {{ balade.date | date: 'shortDate' }}</p>
+      <p><strong>Durée :</strong> {{ balade.duration }} min</p>
+      <p><strong>Programme ID :</strong> {{ balade.programmeBalade }}</p>
+  
+      <button (click)="deleteBalade(balade.id!)">Supprimer</button>
+      <button [routerLink]="['/balade-detail', balade.id]">Détails</button>
+    </div>
+  </div>
+  
