@@ -1,0 +1,57 @@
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px;
+    justify-content: center;
+  }
+  
+  .card {
+    width: 300px;
+    background: #185895; /* violet-bleu gradient */
+    border-radius: 16px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    color: #fff;
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  .card:hover {
+    transform: scale(1.05);
+  }
+  
+  .card h3 {
+    font-size: 22px;
+    margin-bottom: 10px;
+    color: #fff;
+  }
+  
+  .card p {
+    margin: 6px 0;
+    color: #e0e0e0;
+  }
+  
+  .card .status {
+    font-weight: bold;
+    color: #00e676;
+  }
+  
+  .card .status.annulee {
+    color: #ff5252;
+  }
+  
+  .card button {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    padding: 8px 14px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 15px;
+    width: 100%;
+    transition: background-color 0.2s ease;
+  }
+  
+  .card button:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+  }
