@@ -6,9 +6,8 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { HomeComponent } from './components/home/home.component';
-import { AddbaladeComponent } from './balade/addbalade/addbalade.component';
 import { DetailBaladeComponent } from './balade/detail-balade/detail-balade.component';
-import { ListbaladeComponent } from './balade/listbalade/listbalade.component';
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -16,13 +15,12 @@ import { ListbaladeComponent } from './balade/listbalade/listbalade.component';
     HeaderComponent,
     FooterComponent,
     HomeComponent,
-    AddbaladeComponent,
     DetailBaladeComponent,
-    ListbaladeComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
