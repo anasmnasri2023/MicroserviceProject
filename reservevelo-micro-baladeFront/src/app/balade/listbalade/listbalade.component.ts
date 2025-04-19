@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { BaladeserviceService, Balade } from '../../services/baladeservice.service';
 
 @Component({
-  standalone: false,
   selector: 'app-listbalade',
+  standalone: false,
   templateUrl: './listbalade.component.html',
   styleUrls: ['./listbalade.component.css']
 })

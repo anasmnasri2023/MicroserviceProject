@@ -3,8 +3,8 @@ import { Router } from '@angular/router';
 import { BaladeserviceService, Balade } from '../../services/baladeservice.service';
 
 @Component({
-  standalone: false,
   selector: 'app-addbalade',
+  standalone: false,
   templateUrl: './addbalade.component.html',
   styleUrls: ['./addbalade.component.css']
 })
