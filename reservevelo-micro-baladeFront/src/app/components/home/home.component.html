@@ -1,1 +1,29 @@
-<p>home works!</p>
+  <div class="home-container">
+    <div class="card">
+      <div class="card-body">
+        <h1>Bienvenue sur la plateforme de gestion des balades</h1>
+        <p>Planifiez, gérez et suivez vos balades facilement.</p>
+  
+        <div class="stats">
+          <div class="stat-card">
+            <h3>Total Balades</h3>
+            <p>{{ totalBalades }}</p> <!-- À remplir dynamiquement -->
+          </div>
+  
+          <div class="stat-card">
+            <h3>Balades Actives</h3>
+            <p>{{ activeBalades }}</p> <!-- À remplir dynamiquement -->
+          </div>
+  
+          <div class="stat-card">
+            <h3>Balades Terminées</h3>
+            <p>{{ completedBalades }}</p> <!-- À remplir dynamiquement -->
+          </div>
+        </div>
+  
+        <button routerLink="/addbalade" class="btn-ajout">Ajouter une Balade</button>
+        <button routerLink="/listbalade" class="btn-liste">Voir les Balades</button>
+      </div>
+    </div>
+  </div>
+  
