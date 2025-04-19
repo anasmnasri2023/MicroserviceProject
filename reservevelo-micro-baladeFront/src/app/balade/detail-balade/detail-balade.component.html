@@ -1,1 +1,11 @@
-<p>detail-balade works!</p>
+<div *ngIf="balade" class="card">
+    <h3>Détails de la Balade "{{ balade.title }}"</h3>
+    <p><strong>Description :</strong> {{ balade.description }}</p>
+    <p><strong>Lieu :</strong> {{ balade.location }}</p>
+    <p><strong>Date :</strong> {{ balade.date | date: 'shortDate' }}</p>
+    <p><strong>Durée :</strong> {{ balade.duration }} minutes</p>
+    <p><strong>ID Programme :</strong> {{ balade.programmeBalade }}</p>
+  
+    <button (click)="goBack()">Retour</button>
+  </div>
+  

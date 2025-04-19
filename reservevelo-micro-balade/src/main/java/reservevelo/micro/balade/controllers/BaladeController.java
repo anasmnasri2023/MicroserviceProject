@@ -1,6 +1,7 @@
 package reservevelo.micro.balade.controllers;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +24,12 @@ public class BaladeController {
         return ResponseEntity.ok().body(baladeService.getAllBalades());
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Balade> getBaladeById(@PathVariable String id) {
+        Optional<Balade> balade = baladeService.getBaladeById(id);
+        return balade.map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
     @PostMapping("/save/{pgId}")
     public ResponseEntity<Balade>addBalade(@RequestBody Balade balade, @PathVariable(value = "pgId") String pgId){
         return ResponseEntity.ok().body(baladeService.addBalade(balade,pgId));
