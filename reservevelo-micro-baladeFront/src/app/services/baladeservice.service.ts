@@ -32,8 +32,9 @@ export class BaladeserviceService {
 
   // ✅ Ajouter une balade (avec programmeBalade associé)
   addBalade(balade: Balade, programmeId: string): Observable<Balade> {
-    return this.http.post<Balade>(`${this.apiUrl}?pgId=${programmeId}`, balade);
+    return this.http.post<Balade>(`${this.apiUrl}/save/${programmeId}`, balade);
   }
+  
 
   // ✅ Modifier une balade
   updateBalade(balade: Balade): Observable<Balade> {
