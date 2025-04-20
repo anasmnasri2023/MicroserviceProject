@@ -47,11 +47,57 @@
     border: none;
     border-radius: 8px;
     cursor: pointer;
-    margin-top: 15px;
+    margin-top: 5px;
     width: 100%;
     transition: background-color 0.2s ease;
   }
   
   .card button:hover {
     background-color: rgba(255, 255, 255, 0.3);
+  }
+  
+  /* Styles pour la section QR Code */
+  .qr-section {
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .qr-image {
+    background-color: white;
+    padding: 8px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    width: 150px;
+    height: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .qr-image img {
+    max-width: 100%;
+    max-height: 100%;
+  }
+  
+  .qr-button {
+    background-color: #4CAF50 !important;
+    margin-bottom: 10px;
+  }
+  
+  .loading-indicator {
+    color: #fff;
+    font-style: italic;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+  
+  .button-group {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .button-group button {
+    flex: 1;
   }

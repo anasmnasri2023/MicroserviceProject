@@ -49,4 +49,12 @@ export class BaladeserviceService {
     const url = `${this.apiUrl}/export/pdf`;
     return this.http.get(url, { responseType: 'blob' });
   }
+  getQRCode(id: string): Observable<Blob> {
+    return this.http.get(`${this.apiUrl}/qrcode/${id}`, { responseType: 'blob' });
+  }
+  exportBaladesExcel(): Observable<Blob> {
+    const url = `${this.apiUrl}/export/excel`;
+    return this.http.get(url, { responseType: 'blob' });
+  }
+  
 }

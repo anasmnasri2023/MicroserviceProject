@@ -38,4 +38,15 @@ export class HomeComponent implements OnInit {
       window.URL.revokeObjectURL(url);
     });
   }
+  exportExcel(): void {
+    this.baladeService.exportBaladesExcel().subscribe(blob => {
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'balades.xlsx';
+      a.click();
+      window.URL.revokeObjectURL(url);
+    });
+  }
+  
 }

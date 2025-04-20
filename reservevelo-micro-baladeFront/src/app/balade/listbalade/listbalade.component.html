@@ -6,9 +6,26 @@
       <p><strong>Date :</strong> {{ balade.date | date: 'shortDate' }}</p>
       <p><strong>Durée :</strong> {{ balade.duration }} min</p>
       <p><strong>Programme ID :</strong> {{ balade.programmeBalade }}</p>
+      
+      <!-- Section QR Code -->
+      <div class="qr-section">
+        <div *ngIf="hasQRCode(balade.id!)" class="qr-image">
+          <img [src]="qrCodeUrls.get(balade.id!)" alt="QR Code pour {{ balade.title }}">
+        </div>
+        <button 
+          *ngIf="!isLoadingQR(balade.id!) && !hasQRCode(balade.id!)" 
+          class="qr-button" 
+          (click)="generateQRCode(balade)">
+          Générer QR Code
+        </button>
+        <div *ngIf="isLoadingQR(balade.id!)" class="loading-indicator">
+          Génération du QR code...
+        </div>
+      </div>
   
-      <button (click)="deleteBalade(balade.id!)">Supprimer</button>
-      <button [routerLink]="['/balade-detail', balade.id]">Détails</button>
+      <div class="button-group">
+        <button (click)="deleteBalade(balade.id!)">Supprimer</button>
+        <button [routerLink]="['/balade-detail', balade.id]">Détails</button>
+      </div>
     </div>
   </div>
-  
