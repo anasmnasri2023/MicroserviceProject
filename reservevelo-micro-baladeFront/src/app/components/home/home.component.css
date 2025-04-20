@@ -103,4 +103,19 @@
   .btn-liste:hover {
     background-color: #2980b9;
   }
-  
+  .btn-pdf {
+  background-color: transparent;
+  color: white;
+  padding: 10px 20px;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 10px 0;
+  width: 100%;
+  transition: background-color 0.3s ease;
+}
+
+.btn-pdf:hover {
+  background-color: #e74c3c; /* rouge vif */
+}

@@ -1,5 +1,8 @@
 package reservevelo.micro.balade.controllers;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import reservevelo.micro.balade.models.Balade;
 import reservevelo.micro.balade.services.BaladeService;
+import reservevelo.micro.balade.services.PdfGeneratorService;
 
 @RestController
 @RequestMapping("/balade")
@@ -18,8 +22,11 @@ public class BaladeController {
 	
 	@Autowired
 	BaladeService baladeService;
-	
-	@GetMapping("")
+
+    @Autowired
+    PdfGeneratorService pdfService;
+
+    @GetMapping("")
     public ResponseEntity<List<Balade>> getBalades(){
         return ResponseEntity.ok().body(baladeService.getAllBalades());
     }
@@ -45,5 +52,30 @@ public class BaladeController {
     	baladeService.deleteBalade(id);
         return ResponseEntity.ok().build();
     }
+    @GetMapping("/export/pdf")
+    public ResponseEntity<byte[]> exportBaladesToPdf() {
+        List<Balade> balades = baladeService.getAllBalades();
+        ByteArrayInputStream bis = pdfService.generateBaladesPdf(balades);
+
+        return ResponseEntity.ok()
+                .header("Content-Disposition", "attachment; filename=balades.pdf")
+                .contentType(org.springframework.http.MediaType.APPLICATION_PDF)
+                .body(convertToByteArray(bis));
+    }
+
+    // Compatible Java 8
+    private byte[] convertToByteArray(ByteArrayInputStream bis) {
+        byte[] buffer = new byte[1024];
+        int nRead;
+        try (ByteArrayOutputStream baos = new ByteArrayOutputStream()) {
+            while ((nRead = bis.read(buffer, 0, buffer.length)) != -1) {
+                baos.write(buffer, 0, nRead);
+            }
+            return baos.toByteArray();
+        } catch (IOException e) {
+            throw new RuntimeException("Erreur lors de la conversion du flux PDF", e);
+        }
+    }
+
 
 }

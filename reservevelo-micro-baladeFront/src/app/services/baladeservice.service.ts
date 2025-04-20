@@ -45,4 +45,8 @@ export class BaladeserviceService {
   deleteBalade(id: string): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/delete/${id}`);
   }
+  exportBaladesPdf(): Observable<Blob> {
+    const url = `${this.apiUrl}/export/pdf`;
+    return this.http.get(url, { responseType: 'blob' });
+  }
 }
