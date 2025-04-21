@@ -1,56 +1,77 @@
 package reservevelo.micro.user.controllers;
 
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import reservevelo.micro.user.dtos.UserDTO;
 import reservevelo.micro.user.models.User;
 import reservevelo.micro.user.services.UserService;
 
-import java.net.URI;
-import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api")
-@Slf4j
+@RequestMapping("/api/users")
+@CrossOrigin(origins = "*")
 public class UserController {
 
+    private final UserService userService;
+
     @Autowired
-    UserService userService;
-
-    @GetMapping("/users")
-    public ResponseEntity<List<User>> getUsers() {
-        return ResponseEntity.ok().body(userService.getAllUsers());
+    public UserController(UserService userService) {
+        this.userService = userService;
     }
 
-    @GetMapping("/user/{id}")
-    public ResponseEntity<User> getUserById(@PathVariable("id") String userId) {
-        return ResponseEntity.ok().body(userService.getUserById(userId));
+    @GetMapping("/{id}")
+    public ResponseEntity<UserDTO> getUserById(@PathVariable String id) {
+        User user = userService.getUserById(id);
+        if (user == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(userService.convertToDTO(user));
     }
 
-    @PostMapping("/user/save")
-    public ResponseEntity<User> addUser(@RequestBody User user) {
-        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/user/save").toUriString());
-        return ResponseEntity.created(uri).body(userService.saveUser(user));
+    @GetMapping
+    public ResponseEntity<List<UserDTO>> getAllUsers() {
+        List<User> users = userService.getAllUsers();
+        List<UserDTO> userDTOs = users.stream()
+                .map(userService::convertToDTO)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(userDTOs);
     }
 
-    @GetMapping("/user/username/{username}")
-    public ResponseEntity<User> getUserByUsername(@PathVariable String username) {
-        return ResponseEntity.ok(userService.getUser(username));
+    @PutMapping("/{id}")
+    public ResponseEntity<UserDTO> updateUser(@PathVariable String id, @RequestBody UserDTO userDTO) {
+        UserDTO updatedUser = userService.updateUser(id, userDTO);
+        return ResponseEntity.ok(updatedUser);
     }
 
-    @GetMapping("/user/search")
-    public ResponseEntity<List<User>> searchUsers(@RequestParam(required = false) String firstName,
-                                                  @RequestParam(required = false) String lastName) {
-        return ResponseEntity.ok(userService.searchUsers(firstName, lastName));
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteUser(@PathVariable String id) {
+        userService.deleteUser(id);
+        return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/user/sorted")
-    public ResponseEntity<List<User>> sortUsers(@RequestParam(defaultValue = "userName") String field,
-                                                @RequestParam(defaultValue = "asc") String order) {
-        return ResponseEntity.ok(userService.sortUsers(field, order));
+    @GetMapping("/search")
+    public ResponseEntity<List<UserDTO>> searchUsers(
+            @RequestParam(required = false) String firstName,
+            @RequestParam(required = false) String lastName) {
+        List<User> users = userService.searchUsers(firstName, lastName);
+        List<UserDTO> userDTOs = users.stream()
+                .map(userService::convertToDTO)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(userDTOs);
+    }
+
+    @GetMapping("/sort")
+    public ResponseEntity<List<UserDTO>> sortUsers(
+            @RequestParam(defaultValue = "userName") String field,
+            @RequestParam(defaultValue = "asc") String order) {
+        List<User> users = userService.sortUsers(field, order);
+        List<UserDTO> userDTOs = users.stream()
+                .map(userService::convertToDTO)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(userDTOs);
     }
 }
