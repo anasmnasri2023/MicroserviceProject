@@ -1,12 +1,14 @@
 <header class="header">
-    <div class="container">
-      <h1 class="logo">🚴‍♂️ BaladeManager</h1>
-      <nav>
-        <a routerLink="/" routerLinkActive="active">Accueil</a>
-        <a routerLink="/listbalade" routerLinkActive="active">Balade</a>
-        <a routerLink="/addbalade" routerLinkActive="active">Ajouter Balade</a>
-  
-       
-      </nav>
-    </div>
-  </header>
+  <div class="container">
+    <div class="logo">BALADE</div>
+    <nav>
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
+      <a routerLink="/listbalade" routerLinkActive="active">Balades</a>
+      <a routerLink="/addbalade" routerLinkActive="active">Add Balade</a>
+      <a routerLink="/program" routerLinkActive="active">Programs</a>
+      <a routerLink="/program/add" routerLinkActive="active">Add Program</a>
+      <a routerLink="/association" routerLinkActive="active">Associations</a>
+      <a routerLink="/association/add" routerLinkActive="active">Add Association</a>
+    </nav>
+  </div>
+</header>

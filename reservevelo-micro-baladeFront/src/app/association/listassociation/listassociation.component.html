@@ -1,0 +1,15 @@
+
+<div class="container mt-4">
+  <div class="card-container">
+    <div class="card" *ngFor="let association of associations">
+      <h3>Balade: {{ association.name }}</h3>
+      <p><strong>Description :</strong> {{ association.description }}</p>
+
+      <div class="button-group">
+        <button (click)="deleteAssociation(association.id)">Supprimer</button>
+        <button class="btn btn-primary" (click)="goToDetails(association.id)">Détails</button>
+      </div>
+    </div>
+  </div>
+</div>
+

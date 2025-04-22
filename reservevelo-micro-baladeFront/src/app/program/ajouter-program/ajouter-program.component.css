@@ -1,0 +1,60 @@
+.card {
+  background-color: #e0f7fa;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  padding: 20px;
+  width: 80%;
+  max-width: 500px;
+  margin: 20px auto;
+}
+
+.card-body {
+  padding: 20px;
+}
+
+h2 {
+  color: #00796b;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  color: #004d40;
+  font-weight: 500;
+}
+
+input, textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #b2dfdb;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+textarea {
+  height: 100px;
+  resize: vertical;
+}
+
+.btn-submit {
+  background-color: #00796b;
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 5px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 20px;
+  transition: background-color 0.3s ease;
+}
+
+.btn-submit:hover {
+  background-color: #004d40;
+}
