@@ -1,0 +1,42 @@
+
+<div class="card">
+    <div class="card-body">
+      <h2>Ajouter une balade</h2>
+  
+      <form (ngSubmit)="saveBalade()">
+        <div class="form-group">
+          <label>Titre :</label>
+          <input type="text" [(ngModel)]="balade.title" name="title" required />
+        </div>
+  
+        <div class="form-group">
+          <label>Description :</label>
+          <textarea [(ngModel)]="balade.description" name="description" required></textarea>
+        </div>
+  
+        <div class="form-group">
+          <label>Lieu :</label>
+          <input type="text" [(ngModel)]="balade.location" name="location" required />
+        </div>
+  
+        <div class="form-group">
+          <label>Date :</label>
+          <input type="date" [(ngModel)]="balade.date" name="date" required />
+        </div>
+  
+        <div class="form-group">
+          <label>Durée (minutes) :</label>
+          <input type="number" [(ngModel)]="balade.duration" name="duration" required />
+        </div>
+  
+        <div class="form-group">
+            <label>ID Programme :</label>
+            <input type="text" [(ngModel)]="programmeId" name="programmeId" required />
+          </div>
+          
+  
+        <button type="submit" class="btn-submit">Ajouter</button>
+      </form>
+    </div>
+  </div>
+  

@@ -9,7 +9,7 @@ var usersRouter = require('./routes/users');
 const cors = require('cors');
 const PORT = 3000;
 var app = express();
-const eurekaHelper = require('./eureka-helper');
+const eurekaHelper = require('./register-eureka');
 eurekaHelper.registerWithEureka('RESERVEVELO_MS', PORT);
 
 var mongoose = require('mongoose');
