@@ -1,6 +1,7 @@
 package reservevelo.micro.balade.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,6 +27,10 @@ public class BaladeServiceImpl implements BaladeService {
 		return baladeRepo.findAll();
 	}
 
+	@Override
+	public Optional<Balade> getBaladeById(String id) {
+		return baladeRepo.findById(id);
+	}
 	@Override
 	public Balade addBalade(Balade balade, String pgId) {
 		//ProgrammeBalade pg = programmeBaladeRepo.findProgrammeBaladeById(pgId);

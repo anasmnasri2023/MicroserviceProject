@@ -1,0 +1,416 @@
+version: "3.8"
+services:
+  eureka-server:
+    build:
+      context: ./Eureka-server/
+      dockerfile: Dockerfile
+    restart: always
+    container_name: eureka-container
+    image: eureka-image
+    ports:
+      - "8761:8761"
+    networks:
+      - bored-network
+
+  userDB:
+    container_name: userDB-container
+    image: mongo
+    restart: always
+    networks:
+      - bored-network
+    volumes:
+      - userVolume:/data/db
+    ports:
+      - "27017:27017"
+
+  associationDb:
+    container_name: associationDB-container
+    image: mysql
+    restart: always
+    networks:
+      - bored-network
+    volumes:
+      - associationVolume:/data/db
+    ports:
+      - "3307:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=Velo
+
+  eventDb:
+    container_name: eventDB-container
+    image: mysql
+    restart: always
+    networks:
+      - bored-network
+    volumes:
+      - eventVolume:/data/db
+    ports:
+      - "3308:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=RentaBike
+
+  velorentDb:
+    container_name: velorentDb-container
+    image: mysql
+    restart: always
+    networks:
+      - bored-network
+    volumes:
+      - velorentVolume:/data/db
+    ports:
+      - "3309:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=Velorent
+
+
+  baladeDB:
+    container_name: baladeDB-container
+    image: mongo
+    restart: always
+    networks:
+      - bored-network
+    volumes:
+      - baladeVolume:/data/db
+    ports:
+      - "27018:27017"
+
+
+  programmeDB:
+    container_name: programmeDB-container
+    image: mongo
+    restart: always
+    networks:
+      - bored-network
+    volumes:
+      - programmeVolume:/data/db
+    ports:
+      - "27019:27017"
+
+  maintenanceDB:
+    container_name: maintenanceDB-container
+    image: mongo
+    restart: always
+    networks:
+      - bored-network
+    volumes:
+      - maintenanceVolume:/data/db
+    ports:
+      - "27020:27020"
+
+  user-service:
+    build:
+      context: ./reservevelo-micro-user
+      dockerfile: Dockerfile
+    container_name: user-container
+    image: user-image
+    networks:
+      - bored-network
+    depends_on:
+      - eureka-server
+      - userDB
+    restart: always
+    ports:
+      - "8098:8098"
+    environment:
+      - eureka.client.service-url.defaultZone=http://eureka-server:8761/eureka/
+      - eureka.instance.preferIpAddress=true
+      - eureka.instance.leaseRenewalIntervalInSeconds=10
+      - eureka.instance.leaseExpirationDurationInSeconds=30
+      - spring.data.mongodb.uri=mongodb://userDB:27017/userDatabase
+      - spring.data.mongodb.database=userDatabase
+
+
+  association-service:
+    build:
+      context: ./velo
+      dockerfile: Dockerfile
+    container_name: association-container
+    image: association-image
+    networks:
+      - bored-network
+    depends_on:
+      - eureka-server
+      - associationDb
+    restart: always
+    ports:
+      - "8081:8081"
+    environment:
+      - eureka.client.service-url.defaultZone=http://eureka-server:8761/eureka/
+      - eureka.instance.preferIpAddress=true
+      - eureka.instance.leaseRenewalIntervalInSeconds=10
+      - eureka.instance.leaseExpirationDurationInSeconds=30
+      - spring.datasource.url=jdbc:mysql://associationDb:3306/Velo?createDatabaseIfNotExists=true&autoReconnect=true&allowPublicKeyRetrieval=true&useSSL=false
+      - spring.datasource.username=root
+      - spring.datasource.password=root
+      - spring.jpa.show-sql=true
+      - spring.jpa.hibernate.ddl-auto=update
+      - spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL5InnoDBDialect
+      - spring.datasource.driver-class-name=com.mysql.jdbc.Driver
+
+
+  event-service:
+    build:
+      context: ./RentaBike_Event_Comment_MS
+      dockerfile: Dockerfile
+    container_name: event-container
+    image: event-image
+    networks:
+      - bored-network
+    depends_on:
+      - eureka-server
+      - eventDb
+    restart: always
+    ports:
+      - "8088:8088"
+    environment:
+      - eureka.client.service-url.defaultZone=http://eureka-server:8761/eureka/
+      - eureka.instance.preferIpAddress=true
+      - eureka.instance.leaseRenewalIntervalInSeconds=10
+      - eureka.instance.leaseExpirationDurationInSeconds=30
+      - spring.datasource.url=jdbc:mysql://eventDb:3306/RentaBike?createDatabaseIfNotExists=true&autoReconnect=true&allowPublicKeyRetrieval=true&useSSL=false
+      - spring.datasource.username=root
+      - spring.datasource.password=root
+      - spring.jpa.show-sql=true
+      - spring.jpa.hibernate.ddl-auto=update
+      - spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL5InnoDBDialect
+      - spring.datasource.driver-class-name=com.mysql.jdbc.Driver
+
+
+
+  maintenance-service:
+    build:
+      context: ./ReserveMaintenance-Ms1
+      dockerfile: Dockerfile
+    container_name: maintenance-container
+    image: maintenance-image
+    ports:
+      - "3000:3000"
+    restart: always
+    networks:
+      - bored-network
+    depends_on:
+      - eureka-server
+      - maintenanceDB
+    environment:
+      - HOSTNAMEEUROKA=eureka-server
+      - MONGODB_URI=mongodb://maintenanceDB:27017
+      - PORT=3000
+      - DB_NAME=mcv1
+      - Name=ReserveMaintenanceMs1
+      - IPeuroka=eureka-server:8761
+
+  velo-service:
+    build:
+      context: ./ReserveMaintenance-Ms2
+      dockerfile: Dockerfile
+    container_name: velo-container
+    image: velo-image
+    ports:
+      - "3001:3001"
+    restart: always
+    networks:
+      - bored-network
+    depends_on:
+      - eureka-server
+      - maintenanceDB
+    environment:
+      - HOSTNAMEEUROKA=eureka-server
+      - MONGODB_URI=mongodb://maintenanceDB:27017
+      - PORT=3001
+      - DB_NAME=mcv2
+      - Name=ReserveMaintenanceMs2
+      - IPeuroka=eureka-server:8761
+
+
+
+
+
+  velorent-service:
+    build:
+      context: ./velorentms
+      dockerfile: Dockerfile
+    container_name: velorent-container
+    image: velorent-image
+    networks:
+      - bored-network
+    depends_on:
+      - eureka-server
+      - velorentDb
+      - user-service
+    restart: always
+    ports:
+      - "8090:8090"
+    environment:
+      - eureka.client.service-url.defaultZone=http://eureka-server:8761/eureka/
+      - eureka.instance.preferIpAddress=true
+      - eureka.instance.leaseRenewalIntervalInSeconds=10
+      - eureka.instance.leaseExpirationDurationInSeconds=30
+      - spring.datasource.url=jdbc:mysql://velorentDb:3306/Velorent?createDatabaseIfNotExists=true&autoReconnect=true&allowPublicKeyRetrieval=true&useSSL=false
+      - spring.datasource.username=root
+      - spring.datasource.password=root
+      - spring.jpa.show-sql=true
+      - spring.jpa.hibernate.ddl-auto=update
+      - spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL5InnoDBDialect
+      - spring.datasource.driver-class-name=com.mysql.jdbc.Driver
+      - USER__URL__MICROSERVICE=http://user-service:8098
+
+
+
+  balade-service:
+    build:
+      context: ./reservevelo-micro-balade
+      dockerfile: Dockerfile
+    container_name: balade-container
+    image: balade-image
+    networks:
+      - bored-network
+    depends_on:
+      - eureka-server
+      - baladeDB
+    restart: always
+    ports:
+      - "8096:8096"
+    environment:
+      - eureka.client.service-url.defaultZone=http://eureka-server:8761/eureka/
+      - eureka.instance.preferIpAddress=true
+      - eureka.instance.leaseRenewalIntervalInSeconds=10
+      - eureka.instance.leaseExpirationDurationInSeconds=30
+      - spring.data.mongodb.uri=mongodb://baladeDB:27017/baladeDatabase
+      - spring.data.mongodb.database=baladeDatabase
+
+
+  programme-service:
+    build:
+      context: ./reservevelo-micro-programme
+      dockerfile: Dockerfile
+    container_name: programme-container
+    image: programme-image
+    networks:
+      - bored-network
+    depends_on:
+      - eureka-server
+      - programmeDB
+    restart: always
+    ports:
+      - "8099:8099"
+    environment:
+      - eureka.client.service-url.defaultZone=http://eureka-server:8761/eureka/
+      - eureka.instance.preferIpAddress=true
+      - eureka.instance.leaseRenewalIntervalInSeconds=10
+      - eureka.instance.leaseExpirationDurationInSeconds=30
+      - spring.data.mongodb.uri=mongodb://programmeDB:27017/programmeDatabase
+      - spring.data.mongodb.database=programmeDatabase
+
+
+  mysql-kc:
+    image: mysql:5.7.31
+    ports:
+      - 27021:27017
+    volumes:
+      - keycloak-data:/opt/jboss/keycloak/standalone/data
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: keycloak
+      MYSQL_USER: keycloak
+      MYSQL_PASSWORD: password
+    networks:
+      - bored-network
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:22.0.1
+    environment:
+      DB_VENDOR: MYSQL
+      DB_ADDR: mysql-kc
+      DB_DATABASE: keycloak
+      DB_USER: keycloak
+      DB_PASSWORD: password
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+      PROXY_ADDRESS_FORWARDING: "true"
+    ports:
+      - 8180:8080
+      - 8443:8443
+    depends_on:
+      - mysql-kc
+    networks:
+      - bored-network
+    command:
+      - start-dev
+
+
+
+
+
+
+  api-gateway:
+    build:
+      context: ./cloud-gateway-api
+      dockerfile: Dockerfile
+    container_name: api-gateway-container
+    image: api-gateway-image
+    restart: always
+    networks:
+      - bored-network
+    depends_on:
+      - eureka-server
+      - user-service
+      - balade-service
+      - programme-service
+      - event-service
+      - association-service
+      - maintenance-service
+      - velo-service
+      - velorent-service
+      - keycloak
+    ports:
+      - "8051:8051"
+
+    environment:
+      eureka.client.service-url.defaultZone : http://eureka-server:8761/eureka
+      EUREKA_INSTANCE_PREFERIPADDRESS : true
+      EUREKA_INSTANCE_LEASERENEWALINTERVALINSECONDS: 10
+      EUREKA_INSTANCE_LEASEEXPIRATIONDURATIONINSECONDS: 30
+      SPRING_CLOUD_GATEWAY_ROUTES_0_ID: user-service
+      SPRING_CLOUD_GATEWAY_ROUTES_0_URI: http://user-service:8098
+      SPRING_CLOUD_GATEWAY_ROUTES_0_PREDICATES_0: Path=/api/**
+      SPRING_CLOUD_GATEWAY_ROUTES_1_ID: association-service
+      SPRING_CLOUD_GATEWAY_ROUTES_1_URI: http://association-service:8081
+      SPRING_CLOUD_GATEWAY_ROUTES_1_PREDICATES_0: Path=/Association/**,/Reclamation/**,/swagger-ui/**
+      SPRING_CLOUD_GATEWAY_ROUTES_2_ID: balade-service
+      SPRING_CLOUD_GATEWAY_ROUTES_2_URI: http://balade-service:8096/
+      SPRING_CLOUD_GATEWAY_ROUTES_2_PREDICATES_0: Path=/balade/**
+      SPRING_CLOUD_GATEWAY_ROUTES_3_ID: programme-service
+      SPRING_CLOUD_GATEWAY_ROUTES_3_URI: http://programme-service:8099/
+      SPRING_CLOUD_GATEWAY_ROUTES_3_PREDICATES_0: Path=/prog/**
+      SPRING_CLOUD_GATEWAY_ROUTES_4_ID: event-service
+      SPRING_CLOUD_GATEWAY_ROUTES_4_URI: http://event-service:8088/
+      SPRING_CLOUD_GATEWAY_ROUTES_4_PREDICATES_0: Path=/event/**,/comment/**
+      SPRING_CLOUD_GATEWAY_ROUTES_5_ID: maintenance-service
+      SPRING_CLOUD_GATEWAY_ROUTES_5_URI: http://maintenance-service:3000/
+      SPRING_CLOUD_GATEWAY_ROUTES_5_PREDICATES_0: Path=/velo/**
+      SPRING_CLOUD_GATEWAY_ROUTES_6_ID: velo-service
+      SPRING_CLOUD_GATEWAY_ROUTES_6_URI: http://velo-service:3001/
+      SPRING_CLOUD_GATEWAY_ROUTES_6_PREDICATES_0: Path=/maintenance/**
+      SPRING_CLOUD_GATEWAY_ROUTES_7_ID: velorent-service
+      SPRING_CLOUD_GATEWAY_ROUTES_7_URI: http://velorent-service:8090/
+      SPRING_CLOUD_GATEWAY_ROUTES_7_PREDICATES_0: Path=/velorent/**
+      security.oauth2.resourceserver.jwt.issuer-uri: http://keycloak:8080/realms/gateway-realm
+      security.oauth2.resourceserver.jwk-set-uri: http://keycloak:8080/realms/gateway-realm/protocol/openid-connect/certs
+
+
+networks:
+  bored-network:
+    name: bored-network
+volumes:
+  userVolume:
+  associationVolume:
+  baladeVolume:
+  programmeVolume:
+  eventVolume:
+  maintenanceVolume:
+  veloVolume:
+  velorentVolume:
+  keycloak-data:
