@@ -86,8 +86,11 @@ public class VelorentController {
 
     @GetMapping("/userInfo/{userId}")
     public User getUserByVeloRent(@PathVariable("userId") String userId) {
-        return restTemplate.getForObject("http://user-service:8098/api/user/" + userId, User.class);
+        String url = "http://user-service:8098/api/user/" + userId;
+        System.out.println("Calling URL: " + url);
+        return restTemplate.getForObject(url, User.class);
     }
+
 
     @Data
     public static class User {

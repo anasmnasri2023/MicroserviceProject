@@ -4,6 +4,7 @@ import com.example.velorentms.Entity.Velorent;
 import com.example.velorentms.Repository.VelorentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.Date;
 import java.util.List;
@@ -54,4 +55,5 @@ public class VelorentService {
     public List<Velorent> getVelorentsBetweenDates(Date startDate, Date endDate) {
         return velorentRepository.findByStartRentDateBetween(startDate, endDate);
     }
+
 }
