@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import {AssociationService , Association } from '../../services/associationservice.service';
-
+import {AssociationsService , Association } from '../../services/associations.service';
 import {Router} from '@angular/router';
-import {Balade} from '../../services/baladeservice.service';
 
 
 
@@ -24,7 +22,7 @@ export class AjouterAssociationComponent {
     email: '',
   };
 
-  constructor(private assService: AssociationService, private router: Router) {}
+  constructor(private assService: AssociationsService, private router: Router) {}
 
   ngOnInit(): void {}
 

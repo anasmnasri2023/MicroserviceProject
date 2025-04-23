@@ -23,6 +23,10 @@ public class Programme {
 	private String remarks ;
 	
 	private List<Activities> activities ;
+
+	private String weatherCondition;
+	private Double temperature;
+	private String weatherIcon;
 	
 
 }

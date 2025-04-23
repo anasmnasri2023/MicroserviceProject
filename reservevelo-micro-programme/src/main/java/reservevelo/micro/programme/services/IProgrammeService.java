@@ -11,5 +11,7 @@ public interface IProgrammeService {
 	Programme addProgramme(Programme programmeBalade);
 	Programme updateProgramme(Programme programmeBalade);
 	void deleteProgramme(String id);
+	Programme getProgrammeById(String id);
 
+	Programme fetchWeatherForProgramme(Programme programme);
 }

@@ -1,0 +1,115 @@
+/* Main card styles */
+.card {
+  background-color: #e0f7fa; /* pastel light blue */
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  padding: 20px;
+  width: 80%;
+  max-width: 600px;
+  margin: 20px auto;
+}
+
+/* Program information section */
+.program-info {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.program-info h2 {
+  color: #00796b;
+  font-size: 1.6rem;
+  margin-bottom: 15px;
+}
+
+.program-info p {
+  color: #004d40;
+  font-size: 1rem;
+  margin: 8px 0;
+}
+
+/* Weather container section */
+.weather-container {
+  margin-top: 20px;
+  padding-top: 15px;
+  border-top: 1px solid #b2ebf2;
+  text-align: center;
+}
+
+.weather-container h3 {
+  color: #00796b;
+  font-size: 1.4rem;
+  margin-bottom: 15px;
+}
+
+/* Weather card with flex layout */
+.weather-card {
+  display: flex;
+  align-items: center;
+  background-color: #f0f8ff;
+  border-radius: 8px;
+  padding: 15px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Weather icon styling */
+.weather-icon {
+  margin-right: 15px;
+}
+
+.weather-icon img {
+  width: 64px;
+  height: 64px;
+}
+
+/* Weather details container */
+.weather-details {
+  flex: 1;
+  text-align: left;
+}
+
+.temperature {
+  font-size: 28px;
+  font-weight: bold;
+  margin: 0;
+  color: #00796b;
+}
+
+.condition {
+  text-transform: capitalize;
+  margin: 5px 0;
+  color: #004d40;
+}
+
+.location {
+  color: #00695c;
+  margin: 5px 0;
+}
+
+/* Action buttons section */
+.actions {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.back-button, button {
+  background-color: #00796b;
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 5px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.back-button:hover, button:hover {
+  background-color: #004d40;
+}
+
+/* Loading state */
+.loading {
+  text-align: center;
+  padding: 20px;
+  color: #00796b;
+}

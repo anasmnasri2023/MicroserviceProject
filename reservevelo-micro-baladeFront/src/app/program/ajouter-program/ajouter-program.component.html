@@ -4,32 +4,22 @@
 
     <form (ngSubmit)="saveProgram()">
       <div class="form-group">
-        <label>Nom :</label>
-        <input type="text" [(ngModel)]="program.name" name="name" required />
+        <label>Starting point :</label>
+        <input type="text" [(ngModel)]="program.startingPoint" name="name" required />
+      </div>
+
+
+
+      <div class="form-group">
+        <label>Date de departure :</label>
+        <input type="text" [(ngModel)]="program.departureTime" name="departureTime" required />
       </div>
 
       <div class="form-group">
-        <label>Description :</label>
-        <textarea [(ngModel)]="program.description" name="description" required></textarea>
+        <label>Des remarques :</label>
+        <input type="text" [(ngModel)]="program.remarks" name="remarks" required />
       </div>
-
-      <div class="form-group">
-        <label>Date de début :</label>
-        <input type="date" [(ngModel)]="program.startDate" name="startDate" required />
-      </div>
-
-      <div class="form-group">
-        <label>Date de fin :</label>
-        <input type="date" [(ngModel)]="program.endDate" name="endDate" required />
-      </div>
-
-      <div class="form-group">
-        <label>Association ID :</label>
-        <input type="text" [(ngModel)]="program.associationId" name="associationId" required />
-      </div>
-
       <button type="submit" class="btn-submit">Ajouter</button>
     </form>
   </div>
 </div>
-<p>ajouter-program works!</p>

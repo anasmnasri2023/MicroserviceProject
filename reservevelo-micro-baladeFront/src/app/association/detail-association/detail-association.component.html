@@ -1,1 +1,11 @@
-<p>detail-association works!</p>
+<div *ngIf="association" class="card">
+  <h3>Détails de l'association "{{ association.name }}"</h3>
+  <p><strong>Description :</strong> {{ association.description }}</p>
+  <p><strong>Email :</strong> {{ association.email }}</p>
+  <p><strong>phone :</strong> {{ association.phone }} minutes</p>
+  <p><strong>adresse :</strong> {{ association.adresse }}</p>
+
+  <button (click)="goBack()">Retour</button>
+</div>
+
+
