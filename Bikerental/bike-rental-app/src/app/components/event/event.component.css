@@ -1,0 +1,6 @@
+/* src/app/components/event/event.component.css */
+.event-page-container {
+  width: 100%;
+  min-height: calc(100vh - 200px); /* Adjust based on header/footer height */
+  background-color: #f8f9fa;
+}

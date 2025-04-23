@@ -1,0 +1,49 @@
+<!-- src/app/components/home/home.component.html -->
+<div class="home-container">
+  <div class="hero-section">
+    <h1>Welcome to BikeRental</h1>
+    <p>Find and rent the perfect bike for your next adventure.</p>
+    <div class="cta-buttons">
+      <button routerLink="/bikes" class="btn-primary">Browse Bikes</button>
+      <button routerLink="/events" class="btn-secondary">Upcoming Events</button>
+    </div>
+  </div>
+
+  <div class="stats-section">
+    <div class="card">
+      <div class="card-body">
+        <h2>Platform Statistics</h2>
+
+        <div class="stats">
+          <div class="stat-card">
+            <h3>Available Bikes</h3>
+            <p>{{ availableBikes }}</p>
+          </div>
+
+          <div class="stat-card">
+            <h3>Active Rentals</h3>
+            <p>{{ activeRentals }}</p>
+          </div>
+
+          <div class="stat-card">
+            <h3>Upcoming Events</h3>
+            <p>{{ upcomingEvents }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="featured-section">
+    <h2>Featured Bikes</h2>
+    <div class="bikes-grid">
+      <div *ngFor="let bike of featuredBikes" class="bike-card">
+        <img [src]="bike.imageUrl" [alt]="bike.name">
+        <h3>{{ bike.name }}</h3>
+        <p>{{ bike.type }}</p>
+        <p class="price">${{ bike.hourlyRate }}/hour</p>
+        <button (click)="rentBike(bike.id)" class="btn-rent">Rent Now</button>
+      </div>
+    </div>
+  </div>
+</div>

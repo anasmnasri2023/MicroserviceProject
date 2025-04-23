@@ -1,0 +1,54 @@
+<!-- src/app/components/auth/login/login.component.html -->
+<div class="auth-container">
+  <div class="auth-card">
+    <h2>Login</h2>
+
+    <div *ngIf="errorMessage" class="alert alert-danger">
+      {{ errorMessage }}
+    </div>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input
+          type="email"
+          id="email"
+          formControlName="email"
+          class="form-control"
+          [ngClass]="{'invalid': submitted && f['email'].errors}"
+        >
+        <div *ngIf="submitted && f['email'].errors" class="error-message">
+          <div *ngIf="f['email'].errors['required']">Email is required</div>
+          <div *ngIf="f['email'].errors['email']">Please enter a valid email address</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input
+          type="password"
+          id="password"
+          formControlName="password"
+          class="form-control"
+          [ngClass]="{'invalid': submitted && f['password'].errors}"
+        >
+        <div *ngIf="submitted && f['password'].errors" class="error-message">
+          <div *ngIf="f['password'].errors['required']">Password is required</div>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn-submit" [disabled]="loading">
+          <span *ngIf="loading" class="spinner"></span>
+          Login
+        </button>
+      </div>
+
+      <div class="auth-links">
+        <a routerLink="/reset-password">Forgot password?</a>
+        <span class="spacer"></span>
+        <a routerLink="/register">Don't have an account? Register</a>
+      </div>
+    </form>
+  </div>
+</div>
