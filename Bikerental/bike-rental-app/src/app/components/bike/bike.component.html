@@ -1,0 +1,43 @@
+<!-- src/app/components/bike/bike.component.html -->
+<div class="bikes-container">
+  <div class="page-header">
+    <h1>Available Bikes</h1>
+    <p>Browse our selection of bikes available for rent</p>
+  </div>
+
+  <div *ngIf="loading" class="loading">
+    <p>Loading bikes...</p>
+  </div>
+
+  <div *ngIf="errorMessage" class="alert alert-danger">
+    {{ errorMessage }}
+  </div>
+
+  <div *ngIf="!loading && !errorMessage" class="bikes-grid">
+    <div *ngFor="let bike of bikes" class="bike-card">
+      <img [src]="bike.imageUrl || 'assets/images/default-bike.jpg'" [alt]="bike.name">
+      <div class="bike-info">
+        <h3>{{ bike.name }}</h3>
+        <p class="bike-type">{{ bike.type }}</p>
+        <p class="bike-description">{{ bike.description }}</p>
+        <p class="bike-price">${{ bike.hourlyRate }}/hour</p>
+        <div class="bike-footer">
+          <span class="availability" [class.available]="bike.available">
+            {{ bike.available ? 'Available' : 'Currently Rented' }}
+          </span>
+          <button
+            [disabled]="!bike.available"
+            (click)="rentBike(bike.id)"
+            class="btn-rent"
+          >
+            Rent Now
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="bikes.length === 0 && !loading && !errorMessage" class="no-bikes">
+    <p>No bikes are currently available for rent.</p>
+  </div>
+</div>
