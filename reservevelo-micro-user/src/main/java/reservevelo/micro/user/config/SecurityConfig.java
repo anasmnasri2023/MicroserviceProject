@@ -21,17 +21,13 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    // Remove direct dependency on JwtAuthenticationFilter
-    // Instead, use method injection to break circular dependency
+    // So your method looks like:
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http,
                                            JwtAuthenticationFilter jwtAuthenticationFilter) throws Exception {
         http
                 // Disable CSRF protection for stateless JWT-based authentication
                 .csrf().disable()
-
-                // Enable CORS
-                .cors().and()
 
                 // Set session management to stateless
                 .sessionManagement()
@@ -51,7 +47,6 @@ public class SecurityConfig {
 
         return http.build();
     }
-
     /**
      * Creates a password encoder bean for secure password hashing
      * Uses BCrypt, a strong adaptive hash function

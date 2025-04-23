@@ -8,6 +8,7 @@
         <option value="$PROJECT_DIR$/Eureka-server/pom.xml" />
         <option value="$PROJECT_DIR$/reservevelo-micro-user/pom.xml" />
         <option value="$PROJECT_DIR$/reservevelo-micro-balade/pom.xml" />
+        <option value="$PROJECT_DIR$/RentaBike_Event_Comment_MS/pom.xml" />
       </list>
     </option>
   </component>

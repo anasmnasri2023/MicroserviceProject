@@ -10,6 +10,7 @@
         <module name="apigateway" />
         <module name="Eureka-service" />
         <module name="reservevelo-micro-user" />
+        <module name="RentaBike_Event_Comment_MS" />
         <module name="reservevelo-micro-balade" />
       </profile>
     </annotationProcessing>
@@ -17,6 +18,7 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="Eureka-service" options="-parameters" />
+      <module name="RentaBike_Event_Comment_MS" options="-parameters" />
       <module name="apigateway" options="-parameters" />
       <module name="reservevelo-micro-balade" options="-parameters" />
       <module name="reservevelo-micro-user" options="-parameters" />
