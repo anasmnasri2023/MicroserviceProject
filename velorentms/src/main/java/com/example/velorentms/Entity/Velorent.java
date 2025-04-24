@@ -40,5 +40,8 @@ public class Velorent implements Serializable {
     @Column(name = "to_location")
     private String toLocation;
 
+    @Column(name = "Email")
+    private String emailUser;
+
 
 }

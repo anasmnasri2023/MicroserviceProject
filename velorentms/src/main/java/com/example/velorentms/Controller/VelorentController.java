@@ -80,13 +80,13 @@ public class VelorentController {
 
     @GetMapping("/user/{userId}")
     public List<Velorent> getVelorentsByUserId(@PathVariable("userId") String userId) {
-        restTemplate.getForObject("http://user-service:8098/api/user/" + userId, String.class);
+        restTemplate.getForObject("http://user-service:8094/api/user/" + userId, String.class);
         return velorentService.getVelorentsByUserId(userId);
     }
 
     @GetMapping("/userInfo/{userId}")
     public User getUserByVeloRent(@PathVariable("userId") String userId) {
-        return restTemplate.getForObject("http://user-service:8098/api/user/" + userId, User.class);
+        return restTemplate.getForObject("http://user-service:8094/api/user/" + userId, User.class);
     }
 
     @Data
@@ -95,5 +95,6 @@ public class VelorentController {
         private String firstName;
         private String lastName;
         private String userName;
+        private String emailUser;
     }
 }

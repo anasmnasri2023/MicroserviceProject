@@ -1,0 +1,110 @@
+<!-- src/app/components/event/list-event/list-event.component.html -->
+<div class="events-container">
+  <div class="events-header">
+    <h1>Events</h1>
+    <button class="btn-primary" (click)="openAddEventForm()">Add New Event</button>
+  </div>
+
+  <!-- Search Bar -->
+  <div class="search-container">
+    <div class="search-box">
+      <i class="search-icon">🔍</i>
+      <input
+        type="text"
+        placeholder="Search events by title, description or location..."
+        (input)="search($event)"
+        class="search-input"
+      >
+    </div>
+    <div class="search-results" *ngIf="searchTerm && filteredEvents.length > 0">
+      <p>Found {{ filteredEvents.length }} results for "{{ searchTerm }}"</p>
+    </div>
+    <div class="search-no-results" *ngIf="searchTerm && filteredEvents.length === 0">
+      <p>No events found matching "{{ searchTerm }}"</p>
+    </div>
+  </div>
+
+  <div *ngIf="loading" class="loading-spinner">
+    <p>Loading events...</p>
+  </div>
+
+  <div *ngIf="errorMessage" class="error-message">
+    <p>{{ errorMessage }}</p>
+  </div>
+
+  <div *ngIf="!loading && !errorMessage && filteredEvents.length === 0 && !searchTerm" class="no-events">
+    <p>No events found. Create a new event to get started!</p>
+  </div>
+
+  <div class="events-grid">
+    <div class="event-card" *ngFor="let event of filteredEvents">
+      <div class="event-image">
+        <img [src]="event.picture || 'assets/images/event-placeholder.jpg'" alt="{{ event.title }}">
+      </div>
+      <div class="event-details">
+        <h3>{{ event.title }}</h3>
+        <p class="event-description">{{ event.description }}</p>
+        <p class="event-location"><strong>Location:</strong> {{ event.location }}</p>
+        <p class="event-dates">
+          <strong>From:</strong> {{ formatDate(event.start_date) }}<br>
+          <strong>To:</strong> {{ formatDate(event.end_date) }}
+        </p>
+        <div class="event-actions">
+          <button class="btn-secondary" (click)="openEditEventForm(event)">Edit</button>
+          <button class="btn-delete" (click)="deleteEvent(event.idEvent)">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Event Form Modal -->
+  <div *ngIf="showEventForm" class="modal-overlay">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>{{ isEditMode ? 'Edit Event' : 'Add New Event' }}</h2>
+        <button class="close-btn" (click)="closeEventForm()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="saveEvent()">
+          <div class="form-group">
+            <label for="title">Title</label>
+            <input type="text" id="title" name="title" [(ngModel)]="currentEvent.title" required>
+          </div>
+
+          <div class="form-group">
+            <label for="description">Description</label>
+            <textarea id="description" name="description" [(ngModel)]="currentEvent.description" required></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="location">Location</label>
+            <input type="text" id="location" name="location" [(ngModel)]="currentEvent.location" required>
+          </div>
+
+          <div class="form-group">
+            <label for="start_date">Start Date</label>
+            <input type="date" id="start_date" name="start_date" [ngModel]="currentEvent.start_date | date:'yyyy-MM-dd'"
+                   (ngModelChange)="currentEvent.start_date = $event" required>
+          </div>
+
+          <div class="form-group">
+            <label for="end_date">End Date</label>
+            <input type="date" id="end_date" name="end_date" [ngModel]="currentEvent.end_date | date:'yyyy-MM-dd'"
+                   (ngModelChange)="currentEvent.end_date = $event" required>
+          </div>
+
+          <div class="form-group">
+            <label for="picture">Image Filename</label>
+            <input type="text" id="picture" name="picture" [(ngModel)]="imageFilename" placeholder="e.g. city-bike.jpg">
+            <small class="form-hint">Just enter the filename. The path "assets/images/" will be added automatically.</small>
+          </div>
+
+          <div class="form-actions">
+            <button type="button" class="btn-secondary" (click)="closeEventForm()">Cancel</button>
+            <button type="submit" class="btn-primary">Save</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

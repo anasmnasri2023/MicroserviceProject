@@ -13,5 +13,6 @@ public interface VelorentRepository extends JpaRepository<Velorent, Long>, JpaSp
     List<Velorent> findByStartRentDate(Date startRentDate);
     List<Velorent> findByEndRentDate(Date endRentDate); // ✅ added
     List<Velorent> findByUserId(String userId);
-    List<Velorent> findByStartRentDateBetween(Date startDate, Date endDate); // ✅ optional for range
+    List<Velorent> findByStartRentDateBetween(Date startDate, Date endDate);
+    // ✅ optional for range
 }

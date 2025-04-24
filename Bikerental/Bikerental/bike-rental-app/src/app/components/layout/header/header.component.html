@@ -1,0 +1,20 @@
+<!-- src/app/components/layout/header/header.component.html -->
+<header class="header">
+  <div class="container">
+    <h1 class="logo">🚴‍♂️ BikeRental</h1>
+    <nav>
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
+      <a routerLink="/bikes" routerLinkActive="active">Bikes</a>
+      <a routerLink="/events" routerLinkActive="active">Events</a>
+      <a routerLink="/velorentList" routerLinkActive="active">Rent Bike</a>
+      <div class="auth-buttons" *ngIf="!isLoggedIn">
+        <a routerLink="/login" class="btn btn-login">Login</a>
+        <a routerLink="/register" class="btn btn-register">Register</a>
+      </div>
+      <div class="user-menu" *ngIf="isLoggedIn">
+        <span>Welcome, {{ username }}</span>
+        <button (click)="logout()" class="btn btn-logout">Logout</button>
+      </div>
+    </nav>
+  </div>
+</header>
