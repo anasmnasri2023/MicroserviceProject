@@ -54,4 +54,5 @@ public class VelorentService {
     public List<Velorent> getVelorentsBetweenDates(Date startDate, Date endDate) {
         return velorentRepository.findByStartRentDateBetween(startDate, endDate);
     }
+
 }

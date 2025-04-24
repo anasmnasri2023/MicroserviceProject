@@ -1,0 +1,175 @@
+.card {
+  transition: transform 0.2s ease-in-out;
+}
+.card:hover {
+  transform: scale(1.01);
+}
+/* Formulaire */
+.input-style {
+  border-radius: 10px;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  transition: border-color 0.3s ease;
+}
+
+.input-style:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.is-invalid {
+  border-color: red;
+}
+
+.invalid-feedback {
+  color: red;
+  font-size: 14px;
+}
+
+.submit-btn {
+  border-radius: 30px;
+  padding: 12px 40px;
+  font-size: 18px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.submit-btn:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+}
+
+/* Cards */
+.card {
+  border: none;
+  border-radius: 15px;
+  background-color: #f8f9fa;
+}
+
+.card-body {
+  padding: 20px;
+  font-size: 16px;
+  color: #333;
+}
+
+.card-body .btn {
+  border-radius: 20px;
+  padding: 6px 12px;
+}
+
+.card-body .btn-warning {
+  background-color: #f39c12;
+  color: white;
+}
+
+.card-body .btn-danger {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.card-body .btn-warning:hover,
+.card-body .btn-danger:hover {
+  opacity: 0.9;
+}
+
+.card-body .mb-2 {
+  font-size: 14px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .submit-btn {
+    width: 100%;
+  }
+}
+/* Formulaire sous forme de carte */
+.card {
+  border-radius: 15px;
+  background-color: #fff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.card-body {
+  padding: 30px;
+}
+
+/* Champs de saisie */
+.input-style {
+  border-radius: 10px;
+  padding: 12px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  transition: border-color 0.3s ease;
+  margin-bottom: 15px;
+}
+
+.input-style:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.is-invalid {
+  border-color: red;
+}
+
+.invalid-feedback {
+  color: red;
+  font-size: 14px;
+}
+
+/* Bouton de soumission */
+.submit-btn {
+  border-radius: 30px;
+  padding: 12px 40px;
+  font-size: 18px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.submit-btn:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+}
+
+/* Liste des vélos loués */
+.card.mb-4 {
+  border: none;
+  background-color: #f8f9fa;
+  border-radius: 15px;
+}
+
+.card-body {
+  padding: 20px;
+  font-size: 16px;
+  color: #333;
+}
+
+.card-body .btn {
+  border-radius: 20px;
+  padding: 6px 12px;
+}
+
+.card-body .btn-warning {
+  background-color: #f39c12;
+  color: white;
+}
+
+.card-body .btn-danger {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.card-body .btn-warning:hover,
+.card-body .btn-danger:hover {
+  opacity: 0.9;
+}
+
+.card-body .mb-2 {
+  font-size: 14px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .submit-btn {
+    width: 100%;
+  }
+}

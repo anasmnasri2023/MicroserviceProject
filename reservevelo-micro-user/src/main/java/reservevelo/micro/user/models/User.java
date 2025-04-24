@@ -17,4 +17,8 @@ public class User {
     private String firstName;
     private String lastName;
     private String userName;
+    private String email;  // Added for account recovery and notifications
+    private String password;  // Needed for authentication
+    private UserRole role = UserRole.USER;  // For role-based access control
+    private boolean enabled = true;  // Account status
 }
