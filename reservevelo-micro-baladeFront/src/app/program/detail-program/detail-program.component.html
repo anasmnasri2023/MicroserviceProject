@@ -1,0 +1,32 @@
+<div *ngIf="loading" class="loading">
+  <p>Chargement des données...</p>
+</div>
+
+<div *ngIf="program && !loading" class="card">
+  <div class="program-info">
+    <h2>Détails du programme</h2>
+    <p><strong>Description :</strong> {{ program.startingPoint }}</p>
+    <p><strong>Lieu :</strong> {{ program.departureTime }}</p>
+    <p><strong>Date :</strong> {{ program.remarks }}</p>
+  </div>
+
+  <div class="weather-container" *ngIf="program.weatherCondition">
+    <h3>Météo</h3>
+    <div class="weather-card">
+      <div class="weather-icon">
+        <img *ngIf="program.weatherIcon"
+             src="https://openweathermap.org/img/wn/{{ program.weatherIcon }}@2x.png"
+             alt="{{ program.weatherCondition }}" />
+      </div>
+      <div class="weather-details">
+        <p class="temperature">{{ program.temperature | number:'1.0-0' }}°C</p>
+        <p class="condition">{{ program.weatherCondition }}</p>
+        <p class="location">{{ program.startingPoint }}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="actions">
+    <button (click)="goBack()" class="back-button">Retour</button>
+  </div>
+</div>

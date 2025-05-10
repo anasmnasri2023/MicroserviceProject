@@ -1,0 +1,45 @@
+/* Général pour centrer la carte */
+.card {
+  background-color: #e0f7fa; /* couleur pastel bleu clair */
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* légère ombre autour */
+  padding: 20px;
+  width: 80%;
+  max-width: 500px;  /* largeur maximale de la carte */
+  margin: 20px auto; /* centrer horizontalement */
+  text-align: center; /* centrer le texte à l'intérieur */
+}
+
+.card h3 {
+  color: #00796b;  /* titre en couleur plus sombre pour contraste */
+  font-size: 1.6rem;
+  margin-bottom: 10px;
+}
+
+.card p {
+  color: #004d40; /* texte d'information dans une couleur sombre */
+  font-size: 1rem;
+  margin: 8px 0;
+}
+
+.card img {
+  max-width: 100%; /* s'assurer que l'image ne dépasse pas la largeur de la carte */
+  height: auto;
+  margin-top: 20px;
+}
+
+button {
+  background-color: #00796b; /* bouton avec la même couleur que le titre */
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 5px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #004d40; /* couleur plus foncée au survol */
+}

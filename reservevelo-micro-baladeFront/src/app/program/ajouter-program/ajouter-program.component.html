@@ -1,0 +1,25 @@
+<div class="card">
+  <div class="card-body">
+    <h2>Ajouter un programme</h2>
+
+    <form (ngSubmit)="saveProgram()">
+      <div class="form-group">
+        <label>Starting point :</label>
+        <input type="text" [(ngModel)]="program.startingPoint" name="name" required />
+      </div>
+
+
+
+      <div class="form-group">
+        <label>Date de departure :</label>
+        <input type="text" [(ngModel)]="program.departureTime" name="departureTime" required />
+      </div>
+
+      <div class="form-group">
+        <label>Des remarques :</label>
+        <input type="text" [(ngModel)]="program.remarks" name="remarks" required />
+      </div>
+      <button type="submit" class="btn-submit">Ajouter</button>
+    </form>
+  </div>
+</div>

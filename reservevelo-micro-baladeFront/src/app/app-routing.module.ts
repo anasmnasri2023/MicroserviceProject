@@ -11,6 +11,9 @@ const routes: Routes = [
   { path: 'listbalade', component: ListbaladeComponent},
   { path: 'addbalade', component: AddbaladeComponent },
   { path: 'balade-detail/:id', component: DetailBaladeComponent },
+  { path: 'programme', loadChildren: () => import('./programme/programme.module').then(m => m.ProgrammeModule) },
+  { path: 'association', loadChildren: () => import('./association/association.module').then(m => m.AssociationModule) },
+  { path: 'program', loadChildren: () => import('./program/program.module').then(m => m.ProgramModule) },
 
 
 

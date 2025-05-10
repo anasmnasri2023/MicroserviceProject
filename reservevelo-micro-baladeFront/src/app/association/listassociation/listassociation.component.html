@@ -1,0 +1,40 @@
+<!-- HTML Component -->
+<div class="container mt-4">
+  <!-- Notification Section -->
+  <div class="notification-container mb-4" *ngIf="notifications.length > 0">
+    <h5 class="notification-header mb-3">
+      <i class="bi bi-bell-fill me-2"></i>
+      Notifications
+      <span class="badge bg-primary ms-2">{{notifications.length}}</span>
+    </h5>
+
+    <div class="notification-item" *ngFor="let notification of notifications">
+      <div class="notification-content">
+        <div class="notification-icon">
+          <i class="bi bi-bell-fill"></i>
+        </div>
+        <div class="notification-text">
+          <div class="notification-message">{{ notification.message }}</div>
+          <div class="notification-time">{{ notification.createdAt | date:'short' }}</div>
+        </div>
+        <button class="notification-action" (click)="markAsRead(notification.id)">
+          <i class="bi bi-check2"></i>
+          <span>Marquer comme lu</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Association Cards -->
+  <div class="card-container">
+    <div class="card" *ngFor="let association of associations">
+      <h3>Balade: {{ association.name }}</h3>
+      <p><strong>Description :</strong> {{ association.description }}</p>
+
+      <div class="button-group">
+        <button (click)="deleteAssociation(association.id)">Supprimer</button>
+        <button class="btn btn-primary" (click)="goToDetails(association.id)">Détails</button>
+      </div>
+    </div>
+  </div>
+</div>
